@@ -1,0 +1,25 @@
+*** lv451-orig/src/conf.c	2004-01-05 16:23:29.000000000 +0900
+--- lv451/src/conf.c	2016-09-30 22:25:35.000000000 +0900
+***************
+*** 48,57 ****
+  #define DEFAULT_INPUT_CODING_SYSTEM	AUTOSELECT
+  
+  #ifdef UNIX
+! #define DEFAULT_OUTPUT_CODING_SYSTEM	EUC_JAPAN	/* ja specific */
+! #define DEFAULT_KEYBOARD_CODING_SYSTEM	EUC_JAPAN
+! #define DEFAULT_PATHNAME_CODING_SYSTEM	EUC_JAPAN
+! #define DEFAULT_DEFAULT_CODING_SYSTEM	EUC_JAPAN
+  
+  #define LV_CONF		".lv"
+  #endif /* UNIX */
+--- 48,57 ----
+  #define DEFAULT_INPUT_CODING_SYSTEM	AUTOSELECT
+  
+  #ifdef UNIX
+! #define DEFAULT_OUTPUT_CODING_SYSTEM	UTF_8	/* ja specific */
+! #define DEFAULT_KEYBOARD_CODING_SYSTEM	UTF_8
+! #define DEFAULT_PATHNAME_CODING_SYSTEM	UTF_8
+! #define DEFAULT_DEFAULT_CODING_SYSTEM	UTF_8
+  
+  #define LV_CONF		".lv"
+  #endif /* UNIX */

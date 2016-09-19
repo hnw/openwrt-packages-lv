@@ -1,0 +1,19 @@
+*** lv451-orig/src/configure.in	2004-01-05 15:35:44.000000000 +0900
+--- lv451/src/configure.in	2016-09-30 22:26:19.000000000 +0900
+***************
+*** 24,30 ****
+  dnl Checks for libraries.
+  AC_DEFINE(UNIX)
+  AC_DEFINE(TERMCAP)
+! AC_CHECK_LIB(terminfo, tgetstr,, [AC_CHECK_LIB(termcap, tgetstr,, [AC_CHECK_LIB(ncurses, tgetstr,, [AC_CHECK_LIB(curses, tgetstr)])])])
+  
+  dnl Checks for header files.
+  AC_HEADER_STDC
+--- 24,30 ----
+  dnl Checks for libraries.
+  AC_DEFINE(UNIX)
+  AC_DEFINE(TERMCAP)
+! AC_CHECK_LIB(terminfo, tgetstr,, [AC_CHECK_LIB(termcap, tgetstr,, [AC_CHECK_LIB(ncursesw, tgetstr,, [AC_CHECK_LIB(curses, tgetstr)])])])
+  
+  dnl Checks for header files.
+  AC_HEADER_STDC
