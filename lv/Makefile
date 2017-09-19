@@ -6,7 +6,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)$(shell echo $(PKG_VERSION) | tr -d .)
 PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.gz
-PKG_SOURCE_URL:=https://web.archive.org/web/20150915000000/http://www.ff.iij4u.or.jp/~nrt/freeware/
+PKG_SOURCE_URL:=https://github.com/ttdoda/lv/releases/download/v4.51/
 PKG_MD5SUM:=85b70ae797f935741ec9a1cbe92f00e9
 
 PKG_BUILD_PARALLEL:=1
@@ -30,7 +30,7 @@ define Package/lv
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Powerful multi-lingual file viewer/grep
-  URL:=https://web.archive.org/web/20160310122517/http://www.ff.iij4u.or.jp/~nrt/lv/
+  URL:=https://web.archive.org/web/20071209063452/http://www.ff.iij4u.or.jp:80/~nrt/lv/index.html
   DEPENDS:=+libncursesw
 endef
 

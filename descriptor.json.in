@@ -1,7 +1,7 @@
 {
   "package": {
-    "subject": "hnw",
-    "repo": "openwrt-packages",
+    "subject": "${BINTRAY_USER}",
+    "repo": "${BINTRAY_REPO}",
     "name": "${PKG_NAME}",
     "desc": "Powerful multi-lingual file viewer/grep",
     "website_url": "https://web.archive.org/web/20160310122517/http://www.ff.iij4u.or.jp/~nrt/lv/",
@@ -23,7 +23,7 @@
   },
   "files": [
     {
-      "includePattern": "${TRAVIS_BUILD_DIR}/pkgs-for-bintray/(.*\\.ipk)",
+      "includePattern": "${TRAVIS_BUILD_DIR}/pkgs/for-bintray/(.*\\.${UPLOAD_EXT})",
       "uploadPattern": "${DISTRO}/${ARCH}${UPLOAD_DIR_SUFFIX}/$1",
       "matrixParams": {
         "override": 1

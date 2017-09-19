@@ -5,19 +5,24 @@ cache: ccache
 
 env:
   global:
-    - IMG=yhnw/openwrt-sdk
+    - DOCKERHUB_IMG=yhnw/openwrt-sdk
+    - BINTRAY_USER=hnw
+    - BINTRAY_REPO=openwrt-packages
     - PKG_NAME=lv
     - QUIET=1 # 1: suppress build log / "": output all
   matrix:
-    - DISTRO=15.05.1 ARCH=ar71xx PKG_DIR=bin/ar71xx/packages
-    - DISTRO=lede    ARCH=ar71xx PKG_DIR=bin/packages/mips_24kc
+    - DISTRO=openwrt-15.05.1 ARCH=ar71xx PKG_DIR=bin/ar71xx/packages
+    - DISTRO=lede-17.01.2    ARCH=ar71xx PKG_DIR=bin/packages/mips_24kc
 
 before_install:
   - docker version
   - ccache -s | tee ccache.log
+  - mkdir $PWD/pkgs
+  - chmod 777 $PWD/pkgs
+  - chmod -R 777 $HOME/.ccache
 
 script:
-  - docker run --rm -u openwrt -v $PWD:/work -v $HOME/.ccache:/home/openwrt/.ccache $IMG:${DISTRO}-${ARCH} /bin/bash /work/build.sh ${DISTRO}-${ARCH} $PKG_DIR $PKG_NAME $QUIET
+  - docker run --rm -u openwrt -v $PWD:/work -v $HOME/.ccache:/home/openwrt/.ccache ${DOCKERHUB_IMG}:${DISTRO}-${ARCH} /bin/bash /work/build.sh ${DISTRO}-${ARCH} $PKG_DIR $PKG_NAME $QUIET
   - ls -la
   - |
     echo '### before build ###' &&
@@ -27,7 +32,7 @@ script:
     ccache -s
 
 after_failure:
-  - if [[ -e build.log ]]; then tail -300 build.log; fi
+  - if [[ -e pkgs/build.log ]]; then tail -300 pkgs/build.log; fi
 
 before_deploy:
   - |
@@ -42,7 +47,8 @@ before_deploy:
       export DESC="Development snapshot";
       export UPLOAD_DIR_SUFFIX=-dev;
     fi
-  - RELEASED=$(date +%Y-%m-%d) envsubst < descriptor.json.in > descriptor.json
+  - export RELEASED=$(date +%Y-%m-%d);
+  - UPLOAD_EXT=ipk envsubst < descriptor.json.in > descriptor.json;
   - cat descriptor.json
 
 deploy:
@@ -57,7 +63,7 @@ deploy:
     api_key:
       secure: "DiXXOuEXwvizWoJj0ZTCczOiAhxFBH9P93jEA+zGyByZ77PUEQMd205yoMfhed2PMNWU3AOGNgKraIgfn380qGSFU5Xen5XAz0+sCthhKQ6yxAymd8utSmqgvqdHuNTiB9kIF+9k3zeJDr4ZYLtIwhtLYcpR+e6NDBTVPhKCdmv8jLxUm6Kllvb4w1tdR+I5qkCNpyJltTK/xqCIvx2mQBXIZubRNJ1RW8GFCvAQ+5pp1zwIVmOLED7vyr1KxvfVT6NXBJ35AYGdwjx+GQV31gytLDeLKAzLKUaHibkVPBf0IDPpD5/BbpkC862zxS0DG5KkARIrJldzYQiQrngL1ntRNmivgD6A7S1wI8oScFKYn244i0QYTphjXAyYQqERjf+BqK98IG4gndJN0K0zHy7msY4DGv02oqmEQWR6WHGKAHwKgJIG1r69RqPgBy3Ho0DaberuHyfUYdC3/0VOGnBETZY4INuu39GoPwkyDD+BtTcTM+9HBxIz6pYmTJID4hRGBub1/XFZZ16XImt0/zayiAw7IyzMotfU951tzlcvmmcsEYOmsv7X1UwTBoFR8sriXo3kjQswGsHJyD2K5/5lcbFCJFVk8Ic9XAokTHGD04nl7zZNgKR07qGK37TG46BQSFJzk1oxtz+NXNCp3nqHLyXGIxITIDkE5w5hzrI="
     file_glob: true
-    file: "pkgs-for-github/*.ipk"
+    file: "pkgs/for-github/*.ipk"
     skip_cleanup: true
     on:
       tags: true
