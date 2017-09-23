@@ -6,8 +6,6 @@ cache: ccache
 env:
   global:
     - DOCKERHUB_IMG=yhnw/openwrt-sdk
-    - BINTRAY_USER=hnw
-    - BINTRAY_REPO=openwrt-packages
     - PKG_NAME=lv
     - QUIET=1 # 1: suppress build log / "": output all
   matrix:
@@ -48,20 +46,11 @@ before_deploy:
       export UPLOAD_DIR_SUFFIX=-dev;
     fi
   - export RELEASED=$(date +%Y-%m-%d);
-  - UPLOAD_EXT=ipk envsubst < descriptor.json.in > descriptor.json;
-  - cat descriptor.json
 
 deploy:
-  - provider: bintray
-    file: "descriptor.json"
-    user: hnw
-    key:
-      secure: "A/wWQvmUh/UlLMgv6dnLvfv2Iqlw4ZbISjCsMeCdxIUUBUnk7pW6OCuDKCGph+f7mtFCpjannWU5tdtXz8u36/olyh6VAIvCOqjBkmQh0efr+Y7nYSH5OdGieWtxfi9Ap4MexTZTyhu/ridbd/DUxppA70a4KEdvP7xreaChEEdBk3GC0bdYiTC3vbCAEW1kD2Nn6OucdaxcJH4nsd4o5Jlor9p18aZMYWm5u7vmZra8lSo4xB0Jz4lZPpSG1ikgH0ES3F5jJ2eywhYDsKZpTM30Rhd2sUBxj4k+1IPu7k6i4v9/D8WsIscN+bf39e0qGtrS8B0T30FFXSh7N1ujh9CZZ31j+colohrNus5Prg8qhEAPO3XKEzW3wlOenvnV9wC4xgxme99gf0IUVrgH8UzWEyFCP3e285/S8nd7pQr/ZvpJi9qt1crPDvyl1+93qc1G99ZHOpXDEKg0FLeGPFiGwsgHoDKgnTxC5Kse9GUHFiCi3dDdUrdfNdDs/5AZHZ/96EdQ6RUllJ2fFrbazgyLmNRBTHCr60WHb9pCZSfnDLF6uNtRt1gstycgOeTtJs6U/QlEkxS3ZPTw3XmV3crEFGzBvHTWJTAnSjlpxOjf/ji2A5ynsPsHasX6IMpPDV/CXVZQXNODE7nP52LMAX9Xva3JLrPgITUbzqXDpzg="
-    on:
-      all_branches: true
   - provider: releases
     api_key:
-      secure: "DiXXOuEXwvizWoJj0ZTCczOiAhxFBH9P93jEA+zGyByZ77PUEQMd205yoMfhed2PMNWU3AOGNgKraIgfn380qGSFU5Xen5XAz0+sCthhKQ6yxAymd8utSmqgvqdHuNTiB9kIF+9k3zeJDr4ZYLtIwhtLYcpR+e6NDBTVPhKCdmv8jLxUm6Kllvb4w1tdR+I5qkCNpyJltTK/xqCIvx2mQBXIZubRNJ1RW8GFCvAQ+5pp1zwIVmOLED7vyr1KxvfVT6NXBJ35AYGdwjx+GQV31gytLDeLKAzLKUaHibkVPBf0IDPpD5/BbpkC862zxS0DG5KkARIrJldzYQiQrngL1ntRNmivgD6A7S1wI8oScFKYn244i0QYTphjXAyYQqERjf+BqK98IG4gndJN0K0zHy7msY4DGv02oqmEQWR6WHGKAHwKgJIG1r69RqPgBy3Ho0DaberuHyfUYdC3/0VOGnBETZY4INuu39GoPwkyDD+BtTcTM+9HBxIz6pYmTJID4hRGBub1/XFZZ16XImt0/zayiAw7IyzMotfU951tzlcvmmcsEYOmsv7X1UwTBoFR8sriXo3kjQswGsHJyD2K5/5lcbFCJFVk8Ic9XAokTHGD04nl7zZNgKR07qGK37TG46BQSFJzk1oxtz+NXNCp3nqHLyXGIxITIDkE5w5hzrI="
+      secure: "VRGDNaprLPD6YenK6vSS6bEi9eQW8BKbQe9SHvPYPXqM3ZUmJya5tw99j7ilDY+vaZ+KK9kBxF/Zf1XPHjng0D4jyXaS+Ij7Hh3clCKIDnA/+n99DU2I+l9EAb1pjhHdFrpu6zUhEw7gSpMB4v2SK/iZPWDBUaZnTS802jfbe8gxPmHcOlFeEi2cj7ldpENyM9VZBbVy4VRrBiyNXl5Y/4z/rezp06gzfYEFDKpCErqnIukcvQ+np2ydFvdxG5wWMoGmt7VpH4AXTU08xA+onuUxLF6VxX9apLbhlhLSzxqTqairrCakurqNYj5PsijDp/RawjItLazjn93es5qdQJOKditFmQoi2C4EASKtM9XO0RYykmCTczhO+/lJlT36HpU5mEM6AE2KZHs/KgDlpQLC/r6YqOFRnkk3lzZwMXm9P5mpBF+3u+KQ90Zs6jdUoLvkP2k90Jeqhlz+bSmqfznN7t29HdZD1TGJftslpOWV7GBE3LI41AhIOjB/5wkumBBc/hFf2a5xkK+iSwC0Qe77QQxhIV8hglgbWGxgbBSdwKeKAwN7oozWbIDcULDcWeBcDZNFendlEU/6Jt1LUeu7RdpXGZ8AMUwQCgKW4gZCMuBDAv+Z2fu1RjEAr4YrBODE4tyxCaoNeswzXOBtt4+oMTcCksuvl0voQNrRzl4="
     file_glob: true
     file: "pkgs/for-github/*.ipk"
     skip_cleanup: true
