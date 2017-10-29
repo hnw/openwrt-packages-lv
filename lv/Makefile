@@ -26,7 +26,7 @@ include $(INCLUDE_DIR)/package.mk
 CONFIGURE_PATH=./src
 MAKE_PATH=./src
 
-define Package/lv
+define Package/$(PKG_NAME)
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Powerful multi-lingual file viewer/grep
@@ -34,7 +34,7 @@ define Package/lv
   DEPENDS:=+libncursesw
 endef
 
-define Package/lv/description
+define Package/$(PKG_NAME)/description
   Powerful multi-lingual file viewer/grep
 endef
 
@@ -42,7 +42,7 @@ define Build/Install
 	true
 endef
 
-define Package/lv/install
+define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/usr/lib/lv
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/lv $(1)/usr/bin/
@@ -50,4 +50,4 @@ define Package/lv/install
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lv.hlp $(1)/usr/lib/lv/
 endef
 
-$(eval $(call BuildPackage,lv))
+$(eval $(call BuildPackage,$(PKG_NAME)))

@@ -1,16 +1,10 @@
-# openwrt-packages-lv
+# openwrt-packages-lv [![Build Status](https://secure.travis-ci.org/hnw/openwrt-packages-lv.svg?branch=master)](https://travis-ci.org/hnw/openwrt-packages-lv)
 
-This is `lv` package for OpenWrt, tested on CC(15.05.1).
+This is [lv](https://web.archive.org/web/20071209063452/http://www.ff.iij4u.or.jp:80/~nrt/lv/index.html) package for OpenWrt, tested on OpenWrt 15.05.1 / LEDE 17.01.4.
 
 # How to install binary package
 
-```
-$ opkg update
-$ opkg install openssl-util
-$ echo 'src/gz hnw https://dl.bintray.com/hnw/openwrt-packages/15.05.1/ar71xx' >> /etc/opkg/customfeeds.conf
-$ opkg update
-$ opkg install lv
-```
+See [hnw/openwrt-packages](https://github.com/hnw/openwrt-packages).
 
 # How to build
 
