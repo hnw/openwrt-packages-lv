@@ -22,5 +22,5 @@ $ ./scripts/feeds update -a
 $ ./scripts/feeds install lv
 $ make defconfig
 $ make package/toolchain/compile
-$ make packages/lv/compile
+$ make package/lv/compile
 ```
